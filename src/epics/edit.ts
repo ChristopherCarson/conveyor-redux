@@ -182,7 +182,14 @@ export class EditEpic extends Epic {
 
         // images exist
         if (!R.isEmpty(R.prop('inputWithFile', context))) {
-          const path: string[] = ['update' + context.modelName, 'result', 'id']
+          const path: string[] = [
+            'update' + context.modelName,
+            R.path(
+              [context.modelName, 'queryName'],
+              this.schema.schemaJSON
+            ) as string, // camelcase modelName
+            'id'
+          ]
 
           actions = R.append(
             Actions.onInlineFileSubmit({
@@ -210,10 +217,6 @@ export class EditEpic extends Epic {
     )
   }
 
-  // removed m2m relationship from object => alternative to deleting
-  /* WARNING: only to be used with ManyToMany object. A 'remove' operation on a OneToMany relationship
-  whose backref is non-nullable will cascade a delete operation => child object may be 'deleted'
-  from db instead of being 'removed', without sqlalchemy warning * */
   [DETAIL_TABLE_REMOVE_SUBMIT](action$: any, state$: any) {
     return action$.pipe(
       ofType(DETAIL_TABLE_REMOVE_SUBMIT),

@@ -98,7 +98,7 @@ export class OptionsEpic extends Epic {
           Actions.dataOptionsUpdate({
             modelName: context.modelName,
             fieldName: context.fieldName,
-            data
+            value: R.prop('result', data)
           }),
           Actions.updateModelIndex({ modelName: context.targetModel, data })
         ])

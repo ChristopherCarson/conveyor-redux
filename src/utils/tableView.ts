@@ -1,9 +1,8 @@
 import * as R from 'ramda'
 
-// todo: user should be able to specify this number when instantiating conveyor-redux reducer classes
 export const DEFAULT_PAGINATION_AMT = 20
 
-export const initState = {}
+export const initState = { amtPerPage: DEFAULT_PAGINATION_AMT }
 
 export const removeAll = (state: any, modelName: string) => {
   return R.dissocPath(

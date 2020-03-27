@@ -65,14 +65,13 @@ export class EditReducer extends Reducer {
     const payload = action.payload
     // @ts-ignore
     const { modelName, id } = { ...payload }
-    // todo: make sure works
-    const newState = R.dissocPath([modelName, id], state)
+    state = R.dissocPath([modelName, id], state)
 
-    // if no ids on that model are being edited remove the model from the edit store
-    if (R.isEmpty(R.prop(modelName, newState))) {
+    // if no ids for model are being edited, remove the model from the edit store
+    if (R.isEmpty(R.prop(modelName, state))) {
       return R.dissoc(modelName, state)
     }
-    return newState
+    return state
   }
 
   [ATTRIBUTE_EDIT_CANCEL](state: any, action: any) {

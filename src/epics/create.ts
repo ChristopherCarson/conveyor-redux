@@ -87,7 +87,14 @@ export class CreateEpic extends Epic {
           })
         ]
 
-        const IdPath = ['create' + context.modelName, 'result', 'id']
+        const IdPath: string[] = [
+          'create' + context.modelName,
+          R.path(
+            [context.modelName, 'queryName'],
+            this.schema.schemaJSON
+          ) as string, // camelcase modelName
+          'id'
+        ]
 
         // images exist
         if (!R.isEmpty(R.prop('inputWithFile', context))) {

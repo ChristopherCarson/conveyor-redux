@@ -13,12 +13,10 @@ export class TooltipReducer extends Reducer {
     const payload = R.prop('payload', action)
     // @ts-ignore
     const { id, modelName, data } = { ...payload }
-    // @ts-ignore
-    const result = R.pathOr([], ['result'], data)
+    const result = R.prop('result', data)
     const tooltipData = []
 
     for (const fieldName in result) {
-      // @ts-ignore
       const value = R.prop(fieldName, result)
       // todo: add 'node' and/or 'data' props into 'schema.getFieldLabel'
       const name = this.schema.getFieldLabel({ modelName, fieldName })
